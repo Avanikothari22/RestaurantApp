@@ -1,9 +1,8 @@
-
+import {IRestaurant} from '../../IAppInterfaces';
 
  export interface ISearchComponentProps {
    restaurantList : Object[];
  }
- // restaurants interface
-export interface IRestaurants{
-  [Field: string]: any
+export interface IRestaurantObject{
+  restaurant:IRestaurant
 }

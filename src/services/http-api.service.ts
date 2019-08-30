@@ -1,9 +1,9 @@
-import {IRestaurants} from '../IAppInterfaces';
+import {IRestaurant} from '../IAppInterfaces';
 import {HttpBaseService} from './http-base.service';
 export class ApiService{
-    public static async getRestaurantList(endpoint: string): Promise<IRestaurants[]>{
+    public static async getRestaurantList(endpoint: string): Promise<IRestaurant[]>{
             const restaurantResponse = await HttpBaseService.getApi(endpoint);
-            const restaurantsArray: IRestaurants[]= restaurantResponse.restaurants;
+            const restaurantsArray: IRestaurant[]= restaurantResponse.restaurants;
             return restaurantsArray;
     }
 }
