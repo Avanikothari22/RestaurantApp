@@ -1,0 +1,15 @@
+.Container {
+   align-items: 'center'
+}
+
+.Search-Heading {
+   color: #5a8ca6;
+}
+
+.Search-Input {
+    width: 300px;
+    margin-left: 10;
+}
+.Search-Button {
+    background-color: #5a8ca6;
+}
