@@ -1,6 +1,6 @@
-import { IResponse } from './IHttpApiService';
+import { IRestaurantResponse } from './IHttpApiService';
 export class ApiOperations {
-  public static async parseAPIResponse(response: Response): Promise<IResponse> {
+  public static async parseAPIResponse(response: Response): Promise<IRestaurantResponse> {
     const res = await response.json();
     return res;
     //TODO: handle error 

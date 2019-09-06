@@ -6,4 +6,9 @@ export class ApiService{
             const restaurantsArray: IRestaurant[]= restaurantResponse.restaurants;
             return restaurantsArray;
     }
+    // public static async getRestaurant(id: number): Promise<IRestaurant>{
+    //     const endpoint = `restaurant?res_id=${id}`;
+    //     const restaurantResponse : IRestaurant = await HttpBaseService.getApi(endpoint);
+    //     return restaurantResponse;
+    // }
 }

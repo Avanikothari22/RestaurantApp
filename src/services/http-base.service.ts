@@ -1,5 +1,5 @@
 import { AppConstants } from '../common/app-constants';
-import { IResponse } from './IHttpApiService';
+import { IRestaurantResponse } from './IHttpApiService';
 import { ApiOperations } from './http-api.operation';
 export class HttpBaseService {
   private static APP_HEADERS = {
@@ -8,7 +8,7 @@ export class HttpBaseService {
     'user-key': AppConstants.API_KEY
   }
 
-  public static async getApi(endpoint: string): Promise<IResponse> {
+  public static async getApi(endpoint: string): Promise<IRestaurantResponse> {
     return new Promise(resolve => {
       fetch(`${AppConstants.BASE_URL}/${endpoint}`, {
         method: AppConstants.HTTP_REQUEST_TYPES.GET_REQUEST,

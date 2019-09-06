@@ -3,7 +3,7 @@ import {IUserRating} from './services/IHttpApiService';
 import {IPhoto} from './services/IHttpApiService';
 import {IAllReview} from './services/IHttpApiService';
 
-// restaurants interface
+// restaurant interface
 export interface IRestaurant {
     id: string;
     name: string;

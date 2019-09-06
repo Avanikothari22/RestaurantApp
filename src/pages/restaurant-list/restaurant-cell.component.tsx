@@ -9,7 +9,6 @@ import './restaurant-cell.css';
  */
 export default class RestaurantCell extends React.Component<{ thumbImage: string, name: string, cuisines: string, cost: number, timings: string, phoneNumber: string }, {}>{
 
-
     render(): ReactNode {
         return <div>
             <div>
