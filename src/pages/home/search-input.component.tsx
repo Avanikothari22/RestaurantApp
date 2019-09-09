@@ -38,7 +38,8 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
     public async fetchRestaurants() {
         this.setState({ operation: 'fetching restaurants...', showLoader: true })
         const url = `search?q=${this.state.keyword}&count=10&lat=${this.state.lat}&lon=${this.state.lng}`;
-        const restaurants: IRestaurant[] = await ApiService.getRestaurantList(url);
+        let apiServObj: ApiService = new ApiService();
+        const restaurants: IRestaurant[] = await apiServObj.getRestaurantList(url);
         this.setState({
             operation: 'search',
             restaurantList: restaurants,
@@ -74,7 +75,7 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
                                      <Link to={`/restaurant/${id}`}>
                                         <RestaurantCell thumbImage={thumb} name={name} cuisines={cuisines} cost={average_cost_for_two} timings={timings} phoneNumber={phone_numbers} />
                                     </Link>
-                                <Route  path={`/restaurant/:id`} component={Restaurant}/>
+                                <Route exact path={`/restaurant/${id}:id`} component={Restaurant}/>
                                 </div>
                                
                             )

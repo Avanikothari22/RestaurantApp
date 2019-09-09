@@ -1,7 +1,7 @@
 import { AppConstants } from '../common/app-constants';
 import { IRestaurantResponse } from './IHttpApiService';
 import { ApiOperations } from './http-api.operation';
-export class HttpBaseService {
+export default class HttpBaseService {
   private static APP_HEADERS = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ export class HttpBaseService {
             return response;
           } else {
             const parsedResponse = await ApiOperations.parseAPIResponse(response)
-            console.log('******response**********', parsedResponse);
+            console.log('******response**********',JSON.stringify (parsedResponse));
             resolve(parsedResponse);
           }
         })
