@@ -6,7 +6,7 @@ export default class Home extends React.Component<{}, {}>{
   render(): ReactNode {
     return (
       <div className='.Container'>
-        <SearchInput />
+        {/* <SearchInput /> */}
       </div >
     );
   }

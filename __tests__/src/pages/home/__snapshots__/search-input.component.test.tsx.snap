@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="Container"
+>
+  <div
+    style={
+      Object {
+        "backgroundImage": "url([object Object])",
+        "backgroundPosition": "center center",
+        "backgroundRepeat": "no-repeat",
+        "backgroundSize": "cover",
+        "height": 307.2,
+      }
+    }
+  >
+    <h2
+      className="Search-Heading"
+    >
+      Search Near By Restaurants
+    </h2>
+    <input
+      className="Search-Input"
+      onChange={[Function]}
+      placeholder="Search by cuisine or restaurant"
+      type="text"
+      value=""
+    />
+    <input
+      className="Search-Button"
+      onClick={[Function]}
+      style={
+        Object {
+          "borderRadius": 5,
+        }
+      }
+      type="button"
+      value="Search"
+    />
+  </div>
+  <div
+    className="MainContainer"
+  >
+    <div
+      className="sweet-loading"
+    />
+    
+  </div>
+</div>
+`;

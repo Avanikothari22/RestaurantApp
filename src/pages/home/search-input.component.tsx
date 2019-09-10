@@ -69,7 +69,6 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
                             const restObj = obj.restaurant;
                         //    console.log('restObj=====',restObj);
                             const { id, thumb, name, cuisines, average_cost_for_two, timings, phone_numbers } = restObj;
-                           
                             return (
                                <div>
                                      <Link to={`/restaurant/${id}`}>
