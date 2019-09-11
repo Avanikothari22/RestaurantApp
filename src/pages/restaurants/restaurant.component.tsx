@@ -13,10 +13,9 @@ import './restaurant.css';
 export default class Restaurant extends React.Component<RouteComponentProps, {}>{
     constructor(props: Readonly<RouteComponentProps>){
         super(props)
-        
-    }
+      }
     public async componentDidMount(){
-        console.log('id====', this.props.match.params)
+      console.log('res====', this.props.location.state);
     }
     render(): ReactNode {
         return <div>

@@ -5,7 +5,7 @@ import { IRestaurant } from '../../IAppInterfaces';
 import RestaurantCell from '../restaurant-list/restaurant-cell.component';
 import Apploader from '../../loader-components/spinner.component';
 import Background from '../../assets/images/home/foodie.jpg';
-import {BrowserRouter as Router, Link, Route, RouteComponentProps } from 'react-router-dom'
+import {BrowserRouter as Router, Link, Route, RouteComponentProps, Redirect } from 'react-router-dom'
 import Restaurant from '../restaurants/restaurant.component';
 export default class SearchInput extends React.Component<{}, { showLoader: boolean, restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number }>{
     constructor(props: Readonly<{}>) {
@@ -35,7 +35,7 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
         });
     }
 
-    public async fetchRestaurants() {
+    private async fetchRestaurants() {
         this.setState({ operation: 'fetching restaurants...', showLoader: true })
         const url = `search?q=${this.state.keyword}&count=10&lat=${this.state.lat}&lon=${this.state.lng}`;
         let apiServObj: ApiService = new ApiService();
@@ -47,16 +47,16 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
             resultsFound: restaurants.length === 0 ? 'No Results Found.' : ''
         });
     }
-    
     render(): ReactNode {
         return (
-            <div className='Container'>
-        <div 
+            <div className='.Container'>
+        <div  className='.Container'
             style = {{ backgroundImage: `url(${Background})`, 
                 backgroundSize: 'cover', 
                 height: window.innerHeight/2.5,
                 backgroundPosition: 'center center',
                 backgroundRepeat: 'no-repeat',
+                alignItems:'center'
               }}>
                 <h2 className='Search-Heading'>Search Near By Restaurants</h2>
                 <input className='Search-Input' type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
@@ -71,12 +71,13 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
                             const { id, thumb, name, cuisines, average_cost_for_two, timings, phone_numbers } = restObj;
                             return (
                                <div>
-                                     <Link to={`/restaurant/${id}`}>
+                                       <Link to={{
+                                            pathname: '/restaurant',
+                                            state: restObj
+                                          }}>
                                         <RestaurantCell thumbImage={thumb} name={name} cuisines={cuisines} cost={average_cost_for_two} timings={timings} phoneNumber={phone_numbers} />
                                     </Link>
-                                <Route exact path={`/restaurant/${id}:id`} component={Restaurant}/>
-                                </div>
-                               
+                            </div>
                             )
                         }) : this.state.resultsFound
                     }
