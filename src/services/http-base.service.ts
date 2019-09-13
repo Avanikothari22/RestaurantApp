@@ -21,7 +21,7 @@ export default class HttpBaseService {
             return response;
           } else {
             const parsedResponse = await ApiOperations.parseAPIResponse(response)
-            console.log('******response**********',JSON.stringify (parsedResponse));
+            console.log('******response**********',JSON.stringify(parsedResponse));
             resolve(parsedResponse);
           }
         })

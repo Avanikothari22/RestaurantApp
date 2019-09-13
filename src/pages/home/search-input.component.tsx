@@ -49,14 +49,14 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
     }
     render(): ReactNode {
         return (
-            <div className='.Container'>
-        <div  className='.Container'
+            <div >
+        <div 
             style = {{ backgroundImage: `url(${Background})`, 
                 backgroundSize: 'cover', 
                 height: window.innerHeight/2.5,
                 backgroundPosition: 'center center',
                 backgroundRepeat: 'no-repeat',
-                alignItems:'center'
+                alignItems:'center',
               }}>
                 <h2 className='Search-Heading'>Search Near By Restaurants</h2>
                 <input className='Search-Input' type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
