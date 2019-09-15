@@ -1,11 +1,12 @@
 import React, { ReactNode } from 'react';
-import { ClipLoader, SyncLoader } from 'react-spinners';
+import { observer } from 'mobx-react';
+import { SyncLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 const override = css`
     display: block;
     margin: 0 auto;
 `;
-export default class Apploader extends React.Component<{showLoader: boolean}, {}> {
+class Apploader extends React.Component<{showLoader: boolean}, {}> {
     render(): ReactNode{
         return(
             <div className='sweet-loading'>
@@ -19,3 +20,4 @@ export default class Apploader extends React.Component<{showLoader: boolean}, {}
         )
     }
 }
+export default observer(Apploader);
