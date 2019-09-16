@@ -53,21 +53,23 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
         <div 
             style = {{ backgroundImage: `url(${Background})`, 
                 backgroundSize: 'cover', 
-                height: window.innerHeight/2.5,
-                backgroundPosition: 'center center',
+                height: window.innerHeight/2,
+                backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                alignItems:'center',
+                paddingTop: 60,
               }}>
-                <h2 className='Search-Heading'>Search Near By Restaurants</h2>
-                <input className='Search-Input' type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
-                <input className='Search-Button' style={{borderRadius:5}} type='button' value={this.state.operation} onClick={() => this.search()} />
-            </div>
+                
+                <h3 className='Search-Heading'>Search Near By Restaurants</h3>
+                <h5 className='Mid-Heading'>Find the best restaurants, cafés, and bars in your city</h5>
+                <input className='Search-Input' style={{width:500, height: 30, marginRight:10, borderRadius:5}} type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
+                <input className='Search-Button' style={{borderRadius:5, height: 30,}} type='button' value={this.state.operation} onClick={() => this.search()} />
+                </div>
+          
                  <div className='MainContainer'>
                 <Apploader showLoader={this.state.showLoader}/>
                     {this.state.restaurantList.length > 0 ?
                         this.state.restaurantList.map((obj: any) => {
                             const restObj = obj.restaurant;
-                        //    console.log('restObj=====',restObj);
                             const { id, thumb, name, cuisines, average_cost_for_two, timings, phone_numbers } = restObj;
                             return (
                                <div>

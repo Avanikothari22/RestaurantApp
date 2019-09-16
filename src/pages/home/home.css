@@ -3,7 +3,10 @@
 }
 
 .Search-Heading {
-   color: #5a8ca6;
+   color:#ffff;
+}
+.Mid-Heading {
+    color: #ffff
 }
 
 .Search-Input {
@@ -11,7 +14,7 @@
     margin-left: 10;
 }
 .Search-Button {
-    background-color: #5a8ca6;
+    background-color: red;
 }
 .MainContainer {
     padding: 50px;
