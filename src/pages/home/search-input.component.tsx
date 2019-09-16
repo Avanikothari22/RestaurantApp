@@ -1,18 +1,18 @@
 import React, { ReactNode } from 'react';
 import './home.css';
+import { observer } from 'mobx-react';
 import { ApiService } from '../../services/http-api.service';
 import { IRestaurant } from '../../IAppInterfaces';
 import RestaurantCell from '../restaurant-list/restaurant-cell.component';
 import Apploader from '../../loader-components/spinner.component';
 import Background from '../../assets/images/home/foodie.jpg';
-import {BrowserRouter as Router, Link, Route, RouteComponentProps, Redirect } from 'react-router-dom'
-import Restaurant from '../restaurants/restaurant.component';
-export default class SearchInput extends React.Component<{}, { showLoader: boolean, restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number }>{
+import { Link } from 'react-router-dom'
+import { AppStore } from '../../store/app.store';
+class SearchInput extends React.Component<{}, {  restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number }>{
     constructor(props: Readonly<{}>) {
         super(props);
         this.state = {
-            showLoader: false,
-            keyword: '',
+             keyword: '',
             operation: 'Search',
             restaurantList: [],
             resultsFound: '',
@@ -36,14 +36,15 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
     }
 
     private async fetchRestaurants() {
-        this.setState({ operation: 'fetching restaurants...', showLoader: true })
+        this.setState({ operation: 'fetching restaurants...'})
+        AppStore.loader.toggleLoader(true);
         const url = `search?q=${this.state.keyword}&count=10&lat=${this.state.lat}&lon=${this.state.lng}`;
         let apiServObj: ApiService = new ApiService();
         const restaurants: IRestaurant[] = await apiServObj.getRestaurantList(url);
+        AppStore.loader.toggleLoader(false);
         this.setState({
             operation: 'search',
             restaurantList: restaurants,
-            showLoader: false,
             resultsFound: restaurants.length === 0 ? 'No Results Found.' : ''
         });
     }
@@ -66,7 +67,7 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
                 </div>
           
                  <div className='MainContainer'>
-                <Apploader showLoader={this.state.showLoader}/>
+                <Apploader showLoader={AppStore.loader.showLoader}/>
                     {this.state.restaurantList.length > 0 ?
                         this.state.restaurantList.map((obj: any) => {
                             const restObj = obj.restaurant;
@@ -88,3 +89,4 @@ export default class SearchInput extends React.Component<{}, { showLoader: boole
         );
     }
 }
+ export default observer(SearchInput)
