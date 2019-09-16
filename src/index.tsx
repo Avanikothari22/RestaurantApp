@@ -4,9 +4,8 @@ import './index.css';
 import App from './containers/App';
 import { Provider } from 'mobx-react';
 import * as serviceWorker from './serviceWorker';
-import RootModel from './models/';
-const store = RootModel.create({})
-ReactDOM.render(<Provider store={store}>
+import {AppStore} from './store/app.store';
+ReactDOM.render(<Provider store={AppStore}>
     <App />
   </Provider>, document.getElementById('root'));
 
