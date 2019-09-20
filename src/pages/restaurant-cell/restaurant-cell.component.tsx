@@ -10,7 +10,7 @@ import './restaurant-cell.css';
 export default class RestaurantCell extends React.Component<{ thumbImage: string, name: string, cuisines: string, cost: number, timings: string, phoneNumber: string }, {}>{
 
     render(): ReactNode {
-        return <div style={{padding:20, boxShadow: "1px 3px 1px #9E9E9E", alignSelf:'center',}}>
+        return <div style={{padding:20, boxShadow: "1px 3px 1px #f0f0f0", borderRadius:10, alignSelf:'center', width:700, textAlign:'center', margin: '0 auto'}}>
             <div>
                 <img src={this.props.thumbImage} />
             </div>

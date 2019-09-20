@@ -50,7 +50,7 @@ class SearchInput extends React.Component<{}, {  restaurantList: IRestaurant[], 
     }
     render(): ReactNode {
         return (
-            <div style={{textAlign:'center', paddingTop: 30 }} >
+            <div style={{textAlign:'center', paddingTop: 30, backgroundColor: '#ededed' }} >
                 <input className='Search-Input' style={{ width: 500, height: 30, marginRight: 10, borderRadius: 5 }} type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
           <input className='Search-Button' style={{ borderRadius: 5, height: 30, }} type='button' value={this.state.operation} onClick={() => this.search()} />
                 <div className='MainContainer'>
