@@ -1,17 +1,4 @@
 import { RouteComponentProps } from 'react-router-dom';
-// export interface IRestaurantDetails extends RouteComponentProps{
-//     thumbImage: string, 
-//     phoneNumbers: string, 
-//     cuisines: string, 
-//     cost: number, 
-//     openingHours: string, 
-//     address: object, 
-//     moreInfo: string[], 
-//     menu: string
-// }
-
-
-
     export interface HasMenuStatus {
         delivery: number;
         takeaway: number;

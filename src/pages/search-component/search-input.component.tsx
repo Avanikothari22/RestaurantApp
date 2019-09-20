@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
-import './home.css';
+import './search-component.css';
 import { observer } from 'mobx-react';
 import { ApiService } from '../../services/http-api.service';
 import { IRestaurant } from '../../IAppInterfaces';
-import RestaurantCell from '../restaurant-list/restaurant-cell.component';
+import RestaurantCell from '../restaurant-cell/restaurant-cell.component';
 import Apploader from '../../loader-components/spinner.component';
-import Background from '../../assets/images/home/foodie.jpg';
+
 import { Link } from 'react-router-dom'
 import { AppStore } from '../../store/app.store';
 class SearchInput extends React.Component<{}, {  restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number }>{
@@ -50,29 +50,15 @@ class SearchInput extends React.Component<{}, {  restaurantList: IRestaurant[], 
     }
     render(): ReactNode {
         return (
-            <div >
-        <div 
-            style = {{ backgroundImage: `url(${Background})`, 
-                backgroundSize: 'cover', 
-                height: window.innerHeight,
-                fontFamily: 'Dancing Script', 
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                paddingTop: 50,
-              }}>
-                
-                <h1 className='Search-Heading'>Search Near By Restaurants</h1>
-                <h2 className='Mid-Heading'>Find the best restaurants, cafés, and bars in your city</h2>
-                <input className='Search-Input' style={{width:500, height: 30, marginRight:10, borderRadius:5}} type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
-                <input className='Search-Button' style={{borderRadius:5, height: 30,}} type='button' value={this.state.operation} onClick={() => this.search()} />
-                </div>
-          
-                 <div className='MainContainer'>
+            <div style={{textAlign:'center', paddingTop: 30 }} >
+                <input className='Search-Input' style={{ width: 500, height: 30, marginRight: 10, borderRadius: 5 }} type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
+          <input className='Search-Button' style={{ borderRadius: 5, height: 30, }} type='button' value={this.state.operation} onClick={() => this.search()} />
+                <div className='MainContainer'>
                 <Apploader showLoader={AppStore.loader.showLoader}/>
                     {this.state.restaurantList.length > 0 ?
                         this.state.restaurantList.map((obj: any) => {
                             const restObj = obj.restaurant;
-                            const { id, thumb, name, cuisines, average_cost_for_two, timings, phone_numbers } = restObj;
+                            const { thumb, name, cuisines, average_cost_for_two, timings, phone_numbers } = restObj;
                             return (
                                <div>
                                        <Link to={{

@@ -1,5 +1,4 @@
 import React, { ReactNode, } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { IRestaurantDetails } from './IRestaurantProps';
 import './restaurant.css';
 

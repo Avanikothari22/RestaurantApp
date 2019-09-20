@@ -6,7 +6,8 @@ import './App.css';
 import Home from '../pages/home/home';
 
 import { Route, Link, Switch, BrowserRouter as Router, Redirect, } from 'react-router-dom';
-import Restaurant from '../pages/restaurants/restaurant.component';
+import Restaurant from '../pages/restaurant/restaurant.component';
+import searchInputComponent from '../pages/search-component/search-input.component';
 
 class App extends React.Component<{},{} >{
     render(): ReactNode{
@@ -17,6 +18,7 @@ class App extends React.Component<{},{} >{
            <Switch>
               <Route path='/home' component={Home}/>
               <Route exact path="/restaurant" component={Restaurant} />
+              <Route path='/search' component={searchInputComponent}/>
               <Redirect to='/home'/>
             </Switch>
            
