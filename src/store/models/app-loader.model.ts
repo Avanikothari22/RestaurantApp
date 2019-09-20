@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 const ActivityLoaderModel = types.model('Todo', {
-   showLoader: false
+   showLoader: types.boolean
 }).actions((self: any) =>({
         toggleLoader(flag: boolean){
              self.showLoader = flag;

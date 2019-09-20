@@ -54,14 +54,15 @@ class SearchInput extends React.Component<{}, {  restaurantList: IRestaurant[], 
         <div 
             style = {{ backgroundImage: `url(${Background})`, 
                 backgroundSize: 'cover', 
-                height: window.innerHeight/2,
+                height: window.innerHeight,
+                fontFamily: 'Dancing Script', 
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                paddingTop: 60,
+                paddingTop: 50,
               }}>
                 
-                <h3 className='Search-Heading'>Search Near By Restaurants</h3>
-                <h5 className='Mid-Heading'>Find the best restaurants, cafés, and bars in your city</h5>
+                <h1 className='Search-Heading'>Search Near By Restaurants</h1>
+                <h2 className='Mid-Heading'>Find the best restaurants, cafés, and bars in your city</h2>
                 <input className='Search-Input' style={{width:500, height: 30, marginRight:10, borderRadius:5}} type='text' placeholder={'Search by cuisine or restaurant'} value={this.state.keyword} onChange={(e) => this.onChange(e)} />
                 <input className='Search-Button' style={{borderRadius:5, height: 30,}} type='button' value={this.state.operation} onClick={() => this.search()} />
                 </div>
