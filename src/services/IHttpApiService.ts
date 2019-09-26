@@ -1,4 +1,4 @@
-import { string } from "prop-types";
+
 export interface ILocation {
     address: string;
     locality: string;
@@ -199,8 +199,41 @@ export interface IAppHeaders {
         all_reviews: AllRestaurantReview[];
     }
 
-export type IResponse = IRestaurantResponse | IRestaurantDetails
+export type IResponse = IRestaurantResponse & IRootCuisines & IRootCategory & IRootEstablishment;
 
 
+export interface Cuisine {
+    cuisine: {
+    cuisine_id: string;
+    cuisine_name: string;
+    hovered: boolean
 
+    }
+}
+// Category interface
+ export interface Category {
+     categories:{
+        id: number;
+        name: string;
+        hovered: boolean
 
+     }
+      
+ }
+ export interface Establishment {
+     establishment:{
+        id: number,
+        name: string,
+        hovered: boolean
+     }
+ }
+
+ export interface IRootCuisines {
+    cuisines: Cuisine[]
+ }
+ export interface IRootCategory {
+    categories: Category[]
+ }
+export interface IRootEstablishment {
+    establishments:Establishment[]
+}

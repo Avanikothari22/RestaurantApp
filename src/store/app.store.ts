@@ -5,12 +5,13 @@
 
 import { types } from 'mobx-state-tree';
 import ActivityLoaderModel from './models/app-loader.model';
-
+import FiltersModel from './models/app-filters.model';
 /** 
  * @description App Store Model Initialize
  */
 const AppModel = types.model({
     loader: ActivityLoaderModel,
+    filters: FiltersModel,
 });
 
 /** 
@@ -20,6 +21,12 @@ export const AppStore = AppModel.create({
     loader: {   
         showLoader: false
     },
+    filters: {
+        cuisines: [],
+        categories: [],
+        establishmentTypes: []
+    }
+
 
 });
 
