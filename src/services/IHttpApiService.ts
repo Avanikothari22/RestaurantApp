@@ -241,5 +241,5 @@ export interface IAppliedFilters {
     cuisines: [],
     establishment_type: [],
     category: [],
-    sort: [],
+    sort: '',
 }

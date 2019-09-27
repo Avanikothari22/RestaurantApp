@@ -24,7 +24,7 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
                 cuisines: [],
                 establishment_type: [],
                 category: [],
-                sort: []
+                sort:''
             },
             lat: 0,
             lng: 0,

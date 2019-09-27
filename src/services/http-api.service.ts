@@ -1,11 +1,18 @@
 import { IRestaurant } from '../IAppInterfaces';
 import HttpBaseService from './http-base.service';
-import { Category, Cuisine, Establishment } from './IHttpApiService';
+import { Category, Cuisine, Establishment, IAppliedFilters } from './IHttpApiService';
 import { END_POINTS } from '../common/app-constants';
+import { AppStore } from '../store/app.store';
 export class ApiService {
 
     public async getRestaurantList(keyword: string, count: number, latitude: number, longitude: number): Promise<IRestaurant[]> {
-        const restaurantResponse = await HttpBaseService.getApi(`${END_POINTS.search}q=${keyword}&count=${count}&lat=${latitude}&lon=${longitude}`);
+        let url;
+        if (AppStore.filters.filterApplied)
+            url = this.getFilteredUrl(AppStore.filters.appliedFilters, keyword, count, latitude, longitude);
+        else
+            url = `${END_POINTS.search}q=${keyword}&count=${count}&lat=${latitude}&lon=${longitude}`;
+
+        const restaurantResponse = await HttpBaseService.getApi(url);
         const restaurantsArray: IRestaurant[] = restaurantResponse.restaurants;
         return restaurantsArray;
     }
@@ -13,43 +20,72 @@ export class ApiService {
     public async getCuisinesList(latitute: number, longitude: number): Promise<Cuisine[]> {
         const cuisineResponse = await HttpBaseService.getApi(`${END_POINTS.cuisines}city_id=5&lat=${latitute}&lon=${longitude}`);
         const cuisinesArray: Cuisine[] = cuisineResponse.cuisines;
-        const arr = cuisinesArray.map(obj=>{
-            return{
-               cuisine: {
-                ...obj.cuisine,
-                hovered: false
+        const arr = cuisinesArray.map(obj => {
+            return {
+                cuisine: {
+                    ...obj.cuisine,
+                    hovered: false
                 }
             }
         })
-      //  console.log('cuisine=======', arr)
+        //  console.log('cuisine=======', arr)
         return arr;
     }
-    public async getCategoryList(): Promise<Category[]>{
+    public async getCategoryList(): Promise<Category[]> {
         const categoryResponse = await HttpBaseService.getApi(`${END_POINTS.category}`);
         const categoriesArray: Category[] = categoryResponse.categories;
-        const arr = categoriesArray.map(obj=>{
-            return{
-               categories: {
-                ...obj.categories,
-                hovered: false
+        const arr = categoriesArray.map(obj => {
+            return {
+                categories: {
+                    ...obj.categories,
+                    hovered: false
                 }
             }
         })
-      //  console.log('categories=======', arr)
+        //  console.log('categories=======', arr)
         return arr;
     }
-    public async getEstablishments(): Promise<Establishment[]>{
+    public async getEstablishments(): Promise<Establishment[]> {
         const establishmetResponse = await HttpBaseService.getApi(`${END_POINTS.establishments}city_id=5`);
         const establishmentArray: Establishment[] = establishmetResponse.establishments;
-        const arr = establishmentArray.map(obj=>{
-            return{
-               establishment: {
-                ...obj.establishment,
-                hovered: false
+        const arr = establishmentArray.map(obj => {
+            return {
+                establishment: {
+                    ...obj.establishment,
+                    hovered: false
                 }
             }
         })
-       // console.log('establishmrnt=======', arr)
+        // console.log('establishmrnt=======', arr)
         return arr;
+    }
+    private getFilteredUrl(appliedFilters: any, keyword: string, count: number, lat: number, lng: number): string {
+        let url = `${END_POINTS.search}q=${keyword}&count=${count}&lat=${lat}&lon=${lng}`
+        let categoriesId = '';
+        let establishmentId = '';
+        let cuisineId = '';
+        if (appliedFilters.cuisines.length > 0) {
+            appliedFilters.cuisines.map(item => {
+                cuisineId = cuisineId + ',' + item;
+            });
+            url = `${url}&cuisines=${cuisineId}`
+        }
+        if (appliedFilters.establishment_type.length > 0) {
+            appliedFilters.establishment_type.map(item => {
+                establishmentId = establishmentId + ',' + item;
+            })
+            url = `${url}&establishment_type=${establishmentId}`
+
+        }
+        if (appliedFilters.category.length > 0) {
+            appliedFilters.category.map(item => {
+                categoriesId = categoriesId + ',' + item;
+            });
+            url = `${url}&category=${categoriesId}`
+        }
+        if(appliedFilters.sort.length > 0){
+            url = `${url}&sort=${appliedFilters.sort}`
+        }
+        return url;
     }
 }

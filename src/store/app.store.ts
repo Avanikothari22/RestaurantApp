@@ -25,7 +25,12 @@ export const AppStore = AppModel.create({
         cuisines: [],
         categories: [],
         establishmentTypes: [],
-        appliedFilters: {}
+        appliedFilters: {
+            cuisines: [],
+            category: [],
+            establishment_type: [],
+            sort: ''
+        }
     }
 
 

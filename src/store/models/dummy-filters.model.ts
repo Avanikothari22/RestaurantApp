@@ -26,11 +26,10 @@ export const Category = types.model('Category', {
 export const Cuisine = types.model('Cuisine', { 
    cuisine: CuisineModel
   })
-  export const appliedFilters = types.model('appliedfilters', {
+
+export const appliedFilters = types.model('appliedfilters', {
     cuisines: types.array(types.number),
     category: types.array(types.number),
     establishment_type: types.array(types.number),
-    sort: types.array(types.string)
-
-  
+    sort: types.string
 })
