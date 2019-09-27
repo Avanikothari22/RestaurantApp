@@ -10,6 +10,7 @@
     padding:20px
 }
 .Restaurants{
-  width:300px; 
-  float: none;
+  /* width:300px;  */
+  float: center;
+  text-align: center;
 }

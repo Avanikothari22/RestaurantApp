@@ -237,3 +237,9 @@ export interface Cuisine {
 export interface IRootEstablishment {
     establishments:Establishment[]
 }
+export interface IAppliedFilters {
+    cuisines: [],
+    establishment_type: [],
+    category: [],
+    sort: [],
+}

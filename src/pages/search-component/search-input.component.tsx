@@ -3,13 +3,13 @@ import './search-component.css';
 import { observer } from 'mobx-react';
 import { ApiService } from '../../services/http-api.service';
 import { IRestaurant, } from '../../IAppInterfaces';
-import { Cuisine, Category, Establishment } from '../../services/IHttpApiService';
+import { Cuisine, Category, Establishment, IAppliedFilters } from '../../services/IHttpApiService';
 import RestaurantCell from '../restaurant-cell/restaurant-cell.component';
 import Apploader from '../../loader-components/spinner.component';
 
 import { Link } from 'react-router-dom'
 import { AppStore } from '../../store/app.store';
-class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number, cuisineList: (Establishment | Cuisine | Category)[], categoryList: (Establishment | Cuisine | Category)[], establishmentList: (Establishment | Cuisine | Category)[], }>{
+class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], resultsFound: string, keyword: string, operation: string, lat: number, lng: number, cuisineList: (Establishment | Cuisine | Category)[], categoryList: (Establishment | Cuisine | Category)[], establishmentList: (Establishment | Cuisine | Category)[], appliedFilters: IAppliedFilters}>{
     constructor(props: Readonly<{}>) {
         super(props);
         this.state = {
@@ -20,6 +20,12 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
             categoryList: [],
             establishmentList: [],
             resultsFound: '',
+            appliedFilters:{
+                cuisines: [],
+                establishment_type: [],
+                category: [],
+                sort: []
+            },
             lat: 0,
             lng: 0,
         }
@@ -50,6 +56,7 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
     private async fetchCuisines() {
         let apiServObj: ApiService = new ApiService();
         const cuisines: Cuisine[] = await apiServObj.getCuisinesList(this.state.lat, this.state.lng);
+        AppStore.filters.setCuisines(cuisines);
         this.setState({
             cuisineList: cuisines.slice(0, 9)
         })
@@ -57,6 +64,7 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
     private async fetchCategories() {
         let apiServObj: ApiService = new ApiService();
         const categories: Category[] = await apiServObj.getCategoryList();
+        AppStore.filters.setCategory(categories);
         this.setState({
             categoryList: categories.slice(0, 9)
         })
@@ -64,7 +72,8 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
     private async fetchEstablishmts() {
         let apiServObj: ApiService = new ApiService();
         const establishments: Establishment[] = await apiServObj.getEstablishments();
-        this.setState({
+        AppStore.filters.setEstablishmentTypes(establishments);
+         this.setState({
             establishmentList: establishments.slice(0, 9)
         })
     }
