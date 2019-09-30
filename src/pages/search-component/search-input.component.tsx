@@ -90,37 +90,39 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
             resultsFound: restaurants.length === 0 ? 'No Results Found.' : ''
         });
     }
-    private getnewFilterObj(type: string, obj: any) {
+    private getnewFilterObj(type: string, obj: any, action: string) {
         switch (type) {
             case 'establishment':
                 return {
                     establishment: {
                         ...obj.establishment,
-                        hovered: !obj.establishment.hovered,
+                        hovered: action === 'hover' ? !obj.establishment.hovered : obj.establishment.hovered ,
+                        pressed: action === 'pressed' ? !obj.establishment.pressed : obj.establishment.pressed
                     }
                 }
             case 'category':
                 return {
                     categories: {
                         ...obj.categories,
-                        hovered: !obj.categories.hovered,
+                        hovered: action === 'hover' ? !obj.categories.hovered : obj.categories.hovered ,
+                        pressed: action === 'pressed' ? !obj.categories.pressed : obj.categories.pressed
                     }
                 }
             case 'cuisine':
                 return {
                     cuisine: {
                         ...obj.cuisine,
-                        hovered: !obj.cuisine.hovered,
-                    }
+                        hovered: action === 'hover' ? !obj.cuisine.hovered : obj.cuisine.hovered ,
+                        pressed: action === 'pressed' ? !obj.cuisine.pressed : obj.cuisine.pressed                    }
                 }
             default:
                 return obj;
         }
     }
-    onHover(id: number, arr: (Establishment | Cuisine | Category)[], filterType: string) {
+    onHover(id: number, arr: (Establishment | Cuisine | Category)[], filterType: string, action: string) {
         let obj: (Establishment | Cuisine | Category) = arr[id];
         let fArr = arr;
-        const newObj = this.getnewFilterObj(filterType, obj);
+        const newObj = this.getnewFilterObj(filterType, obj, action);
         fArr[id] = newObj;
         switch (filterType) {
             case 'establishment':
@@ -147,18 +149,70 @@ class SearchInput extends React.Component<{}, { restaurantList: IRestaurant[], r
 
     }
 
-    private onfilterSelect() {
-
+    private onfilterSelect(obj: Establishment & Cuisine & Category, filterType: string, index: number, arr:(Establishment | Cuisine | Category)[], action: string) {
+        this.onHover(index, arr, filterType, action );
+        switch (filterType) {
+            case 'establishment':
+                let esArr = this.state.appliedFilters.establishment_type;
+                if(action === 'pressed' && obj.establishment.pressed)
+                esArr.splice(index,1)
+                else
+                esArr.push(obj.establishment.id)
+                this.setState({
+                    appliedFilters:{
+                        cuisines: this.state.appliedFilters.cuisines,
+                        establishment_type: esArr,
+                        category: this.state.appliedFilters.category,
+                        sort:''
+                    },
+                })
+                break;
+            case 'category':
+                    let catArr = this.state.appliedFilters.category;
+                    if(action === 'pressed' && obj.categories.pressed)
+                    catArr.splice(index,1)
+                else
+                catArr.push(obj.categories.id)
+                this.setState({
+                    appliedFilters:{
+                        cuisines: this.state.appliedFilters.cuisines,
+                        establishment_type: this.state.appliedFilters.establishment_type,
+                        category: catArr,
+                        sort:''
+                    },
+                })
+                break;
+            case 'cuisine':
+                    let cuisineArr = this.state.appliedFilters.cuisines;
+                    if(action === 'pressed' && obj.cuisine.pressed)
+                    cuisineArr.splice(index,1)
+                else
+                cuisineArr.push(obj.cuisine.cuisine_id)
+                this.setState({
+                    appliedFilters:{
+                        cuisines: cuisineArr,
+                        establishment_type: this.state.appliedFilters.establishment_type,
+                        category: this.state.appliedFilters.category,
+                        sort:''
+                    },
+                })
+                break;
+            default:
+               break;
+        }
+        console.log('filters-=======', this.state.appliedFilters);
+        AppStore.filters.setAppliedFilters(this.state.appliedFilters);
+        this.fetchRestaurants()
     }
 
     renderFilters(title: string, filtersArray: (Establishment | Cuisine | Category)[], filterName: string, filterType: string): ReactNode {
         return (
             <div>
                 <text style={{ color: '#3d3d3d', fontSize: 16, textAlign: 'left', fontWeight: 'bold' }}>{title}:</text>
-                {filtersArray.map((obj: any, id: number) => {
+                {filtersArray.map((obj: any, index: number) => {
                     return (
                         <div style={{ textAlign: 'left' }}>
-                            <div onMouseEnter={() => this.onHover(id, filtersArray, filterType)} onMouseLeave={() => this.onHover(id, filtersArray, filterType)} style={{ color: obj[title]['hovered'] ? 'green' : 'black' }} onClick={() => this.onfilterSelect()}>{obj[title][filterName]}</div>
+                            <div onMouseEnter={() => this.onHover(index, filtersArray, filterType, 'hover')} onMouseLeave={() => this.onHover(index, filtersArray, filterType, 'hover')} style={{ color: obj[title]['hovered'] || obj[title]['pressed'] ? 'green' : 'black' }} onClick={() => this.onfilterSelect(obj, filterType, index, filtersArray, 'pressed')}>{obj[title][filterName]}</div>
                         </div>
                     )
                 })}

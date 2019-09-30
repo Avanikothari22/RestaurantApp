@@ -15,6 +15,9 @@ const FiltersModel = types.model('filter', {
     },
     setEstablishmentTypes(id:  Array<object>) {
         self.establishmentTypeId = id
+    },
+    setAppliedFilters(filterObject: object ){
+        self.appliedFilters = filterObject
     }
 })).views((self) => ({
     get filterApplied(){

@@ -14,6 +14,7 @@ export class ApiService {
 
         const restaurantResponse = await HttpBaseService.getApi(url);
         const restaurantsArray: IRestaurant[] = restaurantResponse.restaurants;
+        console.log('restaurants======', restaurantsArray);
         return restaurantsArray;
     }
 
@@ -24,6 +25,7 @@ export class ApiService {
             return {
                 cuisine: {
                     ...obj.cuisine,
+                    pressed: false,
                     hovered: false
                 }
             }
@@ -38,6 +40,7 @@ export class ApiService {
             return {
                 categories: {
                     ...obj.categories,
+                    pressed: false,
                     hovered: false
                 }
             }
@@ -52,6 +55,7 @@ export class ApiService {
             return {
                 establishment: {
                     ...obj.establishment,
+                    pressed: false,
                     hovered: false
                 }
             }
@@ -65,21 +69,31 @@ export class ApiService {
         let establishmentId = '';
         let cuisineId = '';
         if (appliedFilters.cuisines.length > 0) {
-            appliedFilters.cuisines.map(item => {
-                cuisineId = cuisineId + ',' + item;
+            appliedFilters.cuisines.map((item: string, index: number) => {
+                if(index=== 0)
+                    cuisineId = item;
+                else
+                    cuisineId = cuisineId + '%2C' + item;
             });
             url = `${url}&cuisines=${cuisineId}`
         }
         if (appliedFilters.establishment_type.length > 0) {
-            appliedFilters.establishment_type.map(item => {
-                establishmentId = establishmentId + ',' + item;
+            appliedFilters.establishment_type.map((item: string, index: number) => {
+                if(index=== 0)
+                    establishmentId = item
+                else
+                establishmentId = establishmentId + '%2C' + item;
+
             })
             url = `${url}&establishment_type=${establishmentId}`
 
         }
         if (appliedFilters.category.length > 0) {
-            appliedFilters.category.map(item => {
-                categoriesId = categoriesId + ',' + item;
+            appliedFilters.category.map((item: string, index: number) => {
+                if(index=== 0)
+                    categoriesId = item
+                else
+                    categoriesId = categoriesId + '%2C' + item;
             });
             url = `${url}&category=${categoriesId}`
         }

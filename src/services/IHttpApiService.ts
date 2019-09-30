@@ -204,9 +204,10 @@ export type IResponse = IRestaurantResponse & IRootCuisines & IRootCategory & IR
 
 export interface Cuisine {
     cuisine: {
-    cuisine_id: string;
+    cuisine_id: number;
     cuisine_name: string;
-    hovered: boolean
+    hovered: boolean,
+    pressed: boolean
 
     }
 }
@@ -215,7 +216,8 @@ export interface Cuisine {
      categories:{
         id: number;
         name: string;
-        hovered: boolean
+        hovered: boolean,
+        pressed: boolean
 
      }
       
@@ -224,7 +226,8 @@ export interface Cuisine {
      establishment:{
         id: number,
         name: string,
-        hovered: boolean
+        hovered: boolean,
+        pressed: boolean
      }
  }
 
@@ -238,8 +241,8 @@ export interface IRootEstablishment {
     establishments:Establishment[]
 }
 export interface IAppliedFilters {
-    cuisines: [],
-    establishment_type: [],
-    category: [],
+    cuisines: number[],
+    establishment_type: number[],
+    category: number[],
     sort: '',
 }
